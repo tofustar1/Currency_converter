@@ -1,0 +1,1 @@
+export const EURO_TO_DOLLAR = 1.07;
