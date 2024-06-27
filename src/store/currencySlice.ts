@@ -17,10 +17,20 @@ const currencySlice = createSlice({
   initialState,
   reducers: {
     convertUSDtoEUR: (state, action : PayloadAction<string>) => {
+      if (!action.payload) {
+        state.usd = '';
+        state.eur = '';
+        return;
+      }
       state.usd = action.payload;
       state.eur = (parseFloat(action.payload) * USD_TO_EUR).toString();
     },
     convertEURtoUSD: (state, action : PayloadAction<string>) => {
+      if(!action.payload) {
+        state.usd = '';
+        state.eur = '';
+        return;
+      }
       state.eur = action.payload;
       state.usd = (parseFloat(action.payload) * EUR_TO_USD).toString();
     }
