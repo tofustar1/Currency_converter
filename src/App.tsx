@@ -1,40 +1,20 @@
-import React, { useState } from 'react';
-import { EUR_TO_USD, USD_TO_EUR } from "./constants";
+import React from 'react';
+import { useAppDispatch, useAppSelector } from "./app/hook";
+import { convertEURtoUSD, convertUSDtoEUR, selectEur, selectUsd } from "./store/currencySlice";
 import './App.css';
 
-interface currenciesState {
-  usd: string;
-  eur: string;
-}
-
 const App = () => {
-  const [currencies, setCurrencies] = useState<currenciesState>({
-    usd: '',
-    eur: '',
-  });
+  const dispatch = useAppDispatch();
+  const currencyUsd = useAppSelector(selectUsd);
+  const currencyEur = useAppSelector(selectEur);
 
   const onCurrencyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
-    const parsedValue = parseFloat(value);
-
-    if (isNaN(parsedValue)) {
-      setCurrencies({
-        usd : '',
-        eur: ''
-      });
-      return;
-    }
 
     if (name === 'usd') {
-      setCurrencies({
-        usd: value,
-        eur: (parsedValue * USD_TO_EUR).toString()
-      });
+      dispatch(convertUSDtoEUR(value));
     } else {
-      setCurrencies({
-        usd: (parsedValue * EUR_TO_USD).toString(),
-        eur: value
-      });
+      dispatch(convertEURtoUSD(value));
     }
   };
 
@@ -48,7 +28,7 @@ const App = () => {
                 type="number"
                 id="usd"
                 name="usd"
-                value={currencies.usd}
+                value={currencyUsd}
             />
           </div>
           <div className="col">
@@ -58,7 +38,7 @@ const App = () => {
                 type="number"
                 id="eur"
                 name="eur"
-                value={currencies.eur}
+                value={currencyEur}
             />
           </div>
         </div>
