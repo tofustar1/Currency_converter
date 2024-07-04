@@ -16,4 +16,4 @@
 ---
 
 ### Вы можете протестировать мое приложение: 
-https://tofustar1.github.io/Currency_converter/
+https://tofustar1.github.io/currency_converter/
